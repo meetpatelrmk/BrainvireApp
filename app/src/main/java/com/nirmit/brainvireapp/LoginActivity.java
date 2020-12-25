@@ -13,7 +13,7 @@ import com.nirmit.brainvireapp.usage.ValidationHandler;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText email,password;
+    private EditText email,password;
     Button signin;
 
     @Override
@@ -26,10 +26,10 @@ public class LoginActivity extends AppCompatActivity {
         signin = (Button) findViewById(R.id.btn_signin);
         signin.setOnClickListener(v -> {
 
-            String userEmail = email.getText().toString();
-            String userPassword = password.getText().toString();
+            String userEmail = email.getText().toString().trim();
+            String userPassword = password.getText().toString().trim();
 
-            if (ValidationHandler.emailValidation(userEmail) && ValidationHandler.passwordCheck(userPassword))
+            if (ValidationHandler.Validation(userEmail,userPassword))
             {
                 Common.login(getApplicationContext());
                 Intent intent = new Intent(LoginActivity.this, DataActivity.class);

@@ -27,9 +27,11 @@ public class SplashActivity extends AppCompatActivity {
              if (preferences.contains("isUserLogin")) {
                  Intent intent = new Intent(SplashActivity.this, DataActivity.class);
                  startActivity(intent);
+
              } else {
                  Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                  startActivity(intent);
+                 finish();
              }
          }
      },2000);

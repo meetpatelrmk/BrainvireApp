@@ -2,21 +2,11 @@ package com.nirmit.brainvireapp.usage;
 
 public class ValidationHandler {
 
-    public static boolean emailValidation(String email) {
+    public static boolean Validation(String email,String password) {
 
-        if (email.equals("test@android.com")) {
+        if(email.equals("test@android.com") && password.equals("123456")) {
             return true;
         } else {
-            return false;
-        }
-    }
-
-    public static boolean passwordCheck(String password){
-
-        if (password.equals("123456")){
-            return true;
-        }
-        else {
             return false;
         }
     }

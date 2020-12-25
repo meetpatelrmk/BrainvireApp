@@ -22,6 +22,7 @@ import com.nirmit.brainvireapp.model.ImageResponse;
 import com.nirmit.brainvireapp.usage.Common;
 import com.squareup.picasso.Picasso;
 
+import java.io.DataInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,41 +34,48 @@ public class DataActivity extends AppCompatActivity {
 
 
     private List<ImageResponse> imageResponseList = new ArrayList<>();
-    GridView gridView;
+    static GridView gridView;
     CustomAdapter customAdapter;
     private ProgressBar mProgressBar;
+    ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.row_data);
 
-        final ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
         gridView = (GridView) findViewById(R.id.gridview);
+        getdata();
+    }
+
+    public void getdata(){
+
+        final CustomAdapter[] customAdapter = new CustomAdapter[1];
 
         Call<ArrayList<ImageResponse>> call = APIclient.apIinterface().getAllImages();
-            call.enqueue(new Callback<ArrayList<ImageResponse>>() {
-                @Override
-                public void onResponse(Call<ArrayList<ImageResponse>> call, Response<ArrayList<ImageResponse>> response) {
+        call.enqueue(new Callback<ArrayList<ImageResponse>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ImageResponse>> call, Response<ArrayList<ImageResponse>> response) {
 
-                    if (response.isSuccessful()){
+                if (response.isSuccessful()) {
 
-                        customAdapter = new CustomAdapter(getApplicationContext(), (ArrayList<ImageResponse>) response.body());
-                        gridView.setAdapter(customAdapter);
+                    customAdapter[0] = new CustomAdapter(getApplicationContext(), (ArrayList<ImageResponse>) response.body());
+                    gridView.setAdapter(customAdapter[0]);
 
-                    }else {
-                        Toast.makeText(getApplicationContext(),"Error occurd",Toast.LENGTH_LONG).show();
-                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Error occurd", Toast.LENGTH_LONG).show();
                 }
+            }
+            @Override
+            public void onFailure(Call<ArrayList<ImageResponse>> call, Throwable t) {
 
-                @Override
-                public void onFailure(Call<ArrayList<ImageResponse>> call, Throwable t) {
-
-                    Toast.makeText(getApplicationContext(),"Error occurd" + t.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-                }
-            });
+                Toast.makeText(getApplicationContext(),"Error occurd" + t.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public class CustomAdapter extends BaseAdapter {
