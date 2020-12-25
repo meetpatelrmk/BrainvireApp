@@ -17,13 +17,13 @@ Also add logout functionality in DataActivity.
 ## ScreenShots
 
 1) SplashActivity
-<>img src="https://github.com/meetpatelrmk/BrainvireApp/blob/master/splash.jpg" width="200">
+><img src="https://github.com/meetpatelrmk/BrainvireApp/blob/master/splash.jpg" width="200">
 
 2) LoginActivity
-<>img src="https://github.com/meetpatelrmk/BrainvireApp/blob/master/login.jpg" width="200">
+><img src="https://github.com/meetpatelrmk/BrainvireApp/blob/master/login.jpg" width="200">
 
 3) DataActivity
-<>img src="https://github.com/meetpatelrmk/BrainvireApp/blob/master/data.jpg" width="200">
+><img src="https://github.com/meetpatelrmk/BrainvireApp/blob/master/data.jpg" width="200">
 
 ## DemoVideo
 
