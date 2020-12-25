@@ -14,13 +14,6 @@ Also add logout functionality in DataActivity.
 2) LoginActivity
 3) DataActivity
 
-## Library
-
-1) [Retrofit](https://github.com/square/retrofit)
-2) [Glide](https://github.com/bumptech/glide)
-3) [Picasso](https://github.com/square/picasso)
-4) [Okhttp](https://github.com/square/okhttp)
-
 ## ScreenShots
 
 1) SplashActivity
@@ -35,3 +28,10 @@ Also add logout functionality in DataActivity.
 ## DemoVideo
 
 https://youtu.be/E2hLqP8qw5o
+
+## Library
+
+1) [Retrofit](https://github.com/square/retrofit)
+2) [Glide](https://github.com/bumptech/glide)
+3) [Picasso](https://github.com/square/picasso)
+4) [Okhttp](https://github.com/square/okhttp)
