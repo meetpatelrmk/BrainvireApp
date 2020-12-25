@@ -39,7 +39,6 @@ public class DataActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
     ProgressBar progressBar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,18 +53,13 @@ public class DataActivity extends AppCompatActivity {
 
     public void getdata(){
 
-        final CustomAdapter[] customAdapter = new CustomAdapter[1];
-
         Call<ArrayList<ImageResponse>> call = APIclient.apIinterface().getAllImages();
         call.enqueue(new Callback<ArrayList<ImageResponse>>() {
             @Override
             public void onResponse(Call<ArrayList<ImageResponse>> call, Response<ArrayList<ImageResponse>> response) {
 
                 if (response.isSuccessful()) {
-
-                    customAdapter[0] = new CustomAdapter(getApplicationContext(), (ArrayList<ImageResponse>) response.body());
-                    gridView.setAdapter(customAdapter[0]);
-
+                        setCustomAdapter(getApplicationContext(),response.body());
                 } else {
                     Toast.makeText(getApplicationContext(), "Error occurd", Toast.LENGTH_LONG).show();
                 }
@@ -76,6 +70,11 @@ public class DataActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Error occurd" + t.getLocalizedMessage(),Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void setCustomAdapter(Context context,ArrayList<ImageResponse> data){
+        CustomAdapter customAdapter = new CustomAdapter(context,data);
+        gridView.setAdapter(customAdapter);
     }
 
     public class CustomAdapter extends BaseAdapter {
