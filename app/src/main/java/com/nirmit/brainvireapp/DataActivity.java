@@ -1,22 +1,25 @@
 package com.nirmit.brainvireapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.nirmit.brainvireapp.network.APIclient;
 import com.nirmit.brainvireapp.model.ImageResponse;
+import com.nirmit.brainvireapp.usage.Common;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,44 +29,45 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SecondActivity extends AppCompatActivity {
+public class DataActivity extends AppCompatActivity {
 
 
     private List<ImageResponse> imageResponseList = new ArrayList<>();
     GridView gridView;
     CustomAdapter customAdapter;
-
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.row_data);
 
+        final ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar.setIndeterminate(true);
+        progressBar.setVisibility(View.VISIBLE);
         gridView = (GridView) findViewById(R.id.gridview);
 
         Call<ArrayList<ImageResponse>> call = APIclient.apIinterface().getAllImages();
-        call.enqueue(new Callback<ArrayList<ImageResponse>>() {
-            @Override
-            public void onResponse(Call<ArrayList<ImageResponse>> call, Response<ArrayList<ImageResponse>> response) {
+            call.enqueue(new Callback<ArrayList<ImageResponse>>() {
+                @Override
+                public void onResponse(Call<ArrayList<ImageResponse>> call, Response<ArrayList<ImageResponse>> response) {
 
-                if (response.isSuccessful()){
+                    if (response.isSuccessful()){
 
-                    customAdapter = new CustomAdapter(getApplicationContext(), (ArrayList<ImageResponse>) response.body());
-                    gridView.setAdapter(customAdapter);
+                        customAdapter = new CustomAdapter(getApplicationContext(), (ArrayList<ImageResponse>) response.body());
+                        gridView.setAdapter(customAdapter);
 
-                }else {
-                    Toast.makeText(getApplicationContext(),"Error occurd",Toast.LENGTH_LONG).show();
-
+                    }else {
+                        Toast.makeText(getApplicationContext(),"Error occurd",Toast.LENGTH_LONG).show();
+                    }
                 }
 
-            }
+                @Override
+                public void onFailure(Call<ArrayList<ImageResponse>> call, Throwable t) {
 
-            @Override
-            public void onFailure(Call<ArrayList<ImageResponse>> call, Throwable t) {
-
-                Toast.makeText(getApplicationContext(),"Error occurd" + t.getLocalizedMessage(),Toast.LENGTH_LONG).show();
-            }
-        });
+                    Toast.makeText(getApplicationContext(),"Error occurd" + t.getLocalizedMessage(),Toast.LENGTH_LONG).show();
+                }
+            });
     }
 
     public class CustomAdapter extends BaseAdapter {
@@ -98,8 +102,31 @@ public class SecondActivity extends AppCompatActivity {
             Picasso.get()
                     .load(data.get(i).getUrl())
                     .into(image);
-
             return view;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.logout) {
+            logout();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+        Common.logout(getApplicationContext());
+        Intent intent = new Intent(DataActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondActivity"
+    tools:context=".DataActivity"
+    android:layout_gravity="center"
     android:orientation="vertical">
 
 
@@ -17,5 +18,13 @@
         android:verticalSpacing="2dp"
         android:numColumns="2">
     </GridView>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:indeterminate="true"
+        android:indeterminateBehavior="cycle"
+        android:visibility="gone"/>
 
 </LinearLayout>
