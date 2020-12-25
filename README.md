@@ -27,7 +27,7 @@ Also add logout functionality in DataActivity.
 
 ## DemoVideo
 
-https://youtu.be/E2hLqP8qw5o
+[![Application Video](https://img.youtube.com/vi/E2hLqP8qw5o/0.jpg)](https://www.youtube.com/watch?v=E2hLqP8qw5o "Application Video")
 
 ## Library
 
