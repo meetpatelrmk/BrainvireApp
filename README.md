@@ -23,6 +23,7 @@ Also add logout functionality in DataActivity.
 
 ## ScreenShots
 
+<img src="https://github.com/data.jpg" width="48">
 
 
 ## DemoVideo
